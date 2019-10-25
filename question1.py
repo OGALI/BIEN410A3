@@ -49,21 +49,25 @@ class RandomWalk:
         print(self.positions)
 
 
-distributionLastPoint = np.zeros(1000)
-distributionAverageDist = np.zeros(1000)
-for i in range(1000):
-    walker = RandomWalk((0,0), 1000)
-    walker.fullWalk()
-    distributionLastPoint[i] = walker.EuclidianDistanceLast()
-    distributionAverageDist[i] = walker.averageEuclidianDistance()
+if __name__ == "__main__":
+    distributionLastPoint = np.zeros(1000)
+    distributionAverageDist = np.zeros(1000)
+    for i in range(1000):
+        walker = RandomWalk((0,0), 1000)
+        walker.fullWalk()
+        distributionLastPoint[i] = walker.EuclidianDistanceLast()
+        distributionAverageDist[i] = walker.averageEuclidianDistance()
 
 
-f, axes = plt.subplots(2, 1)
-# f.title('Main title')
-sns.distplot(distributionLastPoint, bins=20, kde=False, ax=axes[0]);
-axes[0].set_title('Distribution of Euclidian Distances of the Last Point')
-axes[1].set_title('Distribution of Average Euclidian Distances')
+    f, axes = plt.subplots(2, 1)
+    # f.title('Main title')
+    sns.distplot(distributionLastPoint, bins=20, kde=False, rug=True, ax=axes[0]);
+    axes[0].set_title('Distribution of Euclidian Distances of the Last Point')
+    axes[1].set_title('Distribution of Average Euclidian Distances')
 
+    axes[0].set(xlabel='Distance', ylabel='# of times')
+    axes[1].set(xlabel='Distance', ylabel='# of times')
 
-sns.distplot(distributionAverageDist, bins=20, kde=False, ax=axes[1]);
-plt.show()
+    sns.distplot(distributionAverageDist, bins=20, kde=False, rug=True, ax=axes[1]);
+    plt.show()
+
