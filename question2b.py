@@ -43,3 +43,5 @@ if __name__ == "__main__":
     walker = RandomWalkSefAvoid((0,0), 14)
     walker.fullWalk()
     walker.printer()
+    walker.averageEuclidianDistance()
+    walker.EuclidianDistanceLast()

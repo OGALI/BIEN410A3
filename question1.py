@@ -45,6 +45,14 @@ class RandomWalk:
             meanDist = meanDist + np.linalg.norm((self.positions[0,]) - self.positions[i,])
         return meanDist/(self.Nsteps-1)
 
+
+    def centroid(self):
+        length = self.positions.shape[0]
+        sum_x = np.sum(self.positions[:, 0])
+        sum_y = np.sum(self.positions[:, 1])
+        return (sum_x / length, sum_y / length)
+
+
     def printer(self):
         print(self.positions)
 
