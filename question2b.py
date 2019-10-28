@@ -11,6 +11,7 @@ class RandomWalkSefAvoid(RandomWalk):
     def __init__(self, start, Nsteps):
         super().__init__(start, Nsteps)
 
+
     def fullWalk(self):
         for currentStep in range(1, self.Nsteps):
             while self.nextStep(currentStep) == 0:
@@ -19,8 +20,6 @@ class RandomWalkSefAvoid(RandomWalk):
 
     def nextStep(self, currentStep):
         nextStep = random.choice(self.step)
-        # index = random.randint(low=0,high=3)
-        # nextStep = self.step[index]
         previousX, previousY = self.positions[currentStep-1,]
         if nextStep == 'up':
             newX, newY = previousX, previousY + 1
@@ -34,9 +33,9 @@ class RandomWalkSefAvoid(RandomWalk):
         for i in range(self.Nsteps):
             if newX == self.positions[i,0] and newY == self.positions[i,1]:
                 return 0
-            else:
-                self.positions[currentStep,] = (newX, newY)
-                return 1
+
+        self.positions[currentStep,] = (newX, newY)
+        return 1
 
 
 

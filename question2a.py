@@ -62,14 +62,6 @@ if __name__ == "__main__":
         distributionLength[i], distributionLastPoint[i], distributionAverageDist[i] = walker.fullWalk()
 
 
-
-    # # f.title('Main title')
-    # sns.distplot(distributionLength, kde=False);
-    # # axes[0].set_title('Distribution of Number of Points')
-    # plt.title('Distributions of Number of Steps')
-    # plt.xlabel('# of steps')
-    # plt.show()
-
     f, axes = plt.subplots(3, 1)
     sns.distplot(distributionLength, kde=False, rug=True, ax=axes[0]);
 
