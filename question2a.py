@@ -15,11 +15,15 @@ class RandomWalkSticky(RandomWalk):
 
 
     def fullWalk(self):
+        averageDistance = 0
+        ED = 0
         for currentStep in range(1, self.Nsteps):
             if(self.nextStep(currentStep) == 0):
                 break
-        # print(currentStep-1)
-        return currentStep
+        if currentStep == 999:
+            averageDistance = self.averageEuclidianDistance()
+            ED = self.EuclidianDistanceLast()
+        return currentStep, averageDistance, ED
 
 
     def nextStep(self, currentStep):
@@ -47,19 +51,27 @@ if __name__ == "__main__":
     # walker  = RandomWalkSticky((0,0), 1000)
     # walker.fullWalk()
     nWalks = 2000
-    nSteps = 1000
+    nPoints = 1000 #nsteps = npoints -1
     distributionLength = np.zeros(nWalks)
+
+    distributionLastPoint = np.zeros(nWalks)
+    distributionAverageDist = np.zeros(nWalks)
+
     for i in range(nWalks):
-        walker = RandomWalkSticky((0, 0), nSteps)
-        distributionLength[i] = walker.fullWalk()
+        walker = RandomWalkSticky((0, 0), nPoints)
+        distributionLength[i], distributionLastPoint[i], distributionAverageDist[i] = walker.fullWalk()
 
 
-    # f.title('Main title')
-    sns.distplot(distributionLength, kde=False);
-    # axes[0].set_title('Distribution of Number of Points')
-    plt.title('Distributions of Number of Steps')
-    plt.xlabel('# of steps')
-    plt.show()
+
+    # # f.title('Main title')
+    # sns.distplot(distributionLength, kde=False);
+    # # axes[0].set_title('Distribution of Number of Points')
+    # plt.title('Distributions of Number of Steps')
+    # plt.xlabel('# of steps')
+    # plt.show()
+
+    f, axes = plt.subplots(3, 1)
+    sns.distplot(distributionLength, kde=False, rug=True, ax=axes[0]);
 
     print(distributionLength)
     # Check fraction above 1000
@@ -67,3 +79,8 @@ if __name__ == "__main__":
     distributionLengthFraction[distributionLengthFraction<999] = 0
     distributionLengthFraction[distributionLengthFraction==999] = 1
     print(np.sum(distributionLengthFraction)/999)
+
+
+    sns.distplot(distributionLastPoint[distributionLastPoint != 0], bins=20, kde=False, rug=True, ax=axes[1]);
+    sns.distplot(distributionAverageDist[distributionAverageDist != 0], bins=20, kde=False, rug=True, ax=axes[2]);
+    plt.show()
