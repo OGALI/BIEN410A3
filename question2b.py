@@ -45,3 +45,4 @@ if __name__ == "__main__":
     walker.printer()
     walker.averageEuclidianDistance()
     walker.EuclidianDistanceLast()
+    print('average to centroid:', walker.averageEuclidianDistance(walker.centroid()))

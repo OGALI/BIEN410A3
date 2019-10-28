@@ -46,7 +46,6 @@ class RandomWalkSticky(RandomWalk):
             return 1
 
 
-
 if __name__ == "__main__":
     # walker  = RandomWalkSticky((0,0), 1000)
     # walker.fullWalk()
@@ -76,3 +75,5 @@ if __name__ == "__main__":
     sns.distplot(distributionLastPoint[distributionLastPoint != 0], bins=20, kde=False, rug=True, ax=axes[1]);
     sns.distplot(distributionAverageDist[distributionAverageDist != 0], bins=20, kde=False, rug=True, ax=axes[2]);
     plt.show()
+
+    print('average to centroid:', walker.averageEuclidianDistance(walker.centroid()))

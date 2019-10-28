@@ -39,7 +39,7 @@ class RandomWalk:
         dist = np.linalg.norm(self.positions[0,]- self.positions[self.Nsteps -1,])
         return dist
 
-    def averageEuclidianDistance(self):
+    def averageEuclidianDistance(self, start=(0, 0)):
         meanDist = 0
         for i in range(self.Nsteps):
             meanDist = meanDist + np.linalg.norm((self.positions[0,]) - self.positions[i,])
