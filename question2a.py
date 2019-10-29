@@ -69,7 +69,8 @@ if __name__ == "__main__":
     distributionLengthFraction = distributionLength
     distributionLengthFraction[distributionLengthFraction<999] = 0
     distributionLengthFraction[distributionLengthFraction==999] = 1
-    print(np.sum(distributionLengthFraction)/999)
+    print(len(distributionLengthFraction))
+    print(np.sum(distributionLengthFraction)/2000)
 
 
     sns.distplot(distributionLastPoint[distributionLastPoint != 0], bins=20, kde=False, rug=True, ax=axes[1]);
