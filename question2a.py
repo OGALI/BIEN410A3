@@ -1,10 +1,8 @@
 import random
 import numpy as np
 from question1 import RandomWalk
-import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.pyplot as plt
-from scipy import stats
 
 class RandomWalkSticky(RandomWalk):
     step = ['up', 'down', 'right', 'left']
@@ -77,4 +75,4 @@ if __name__ == "__main__":
     sns.distplot(distributionAverageDist[distributionAverageDist != 0], bins=20, kde=False, rug=True, ax=axes[2]);
     plt.show()
 
-    print('average to centroid:', walker.averageEuclidianDistance(walker.centroid()))
+    print('average from centroid:', walker.averageEuclidianDistance(walker.centroid()))

@@ -1,10 +1,8 @@
 import random
 import numpy as np
 from question1 import RandomWalk
-import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.pyplot as plt
-from scipy import stats
 
 
 class RandomWalkSefAvoid(RandomWalk):
@@ -43,14 +41,6 @@ class RandomWalkSefAvoid(RandomWalk):
 
 
 if __name__ == "__main__":
-    # walker = RandomWalkSefAvoid((0,0), 14)
-    # walker.fullWalk()
-    # walker.printer()
-    # walker.averageEuclidianDistance()
-    # walker.EuclidianDistanceLast()
-    # walker.averageEuclidianDistance(walker.centroid())
-    # print('average to centroid:', walker.averageEuclidianDistance(walker.centroid()))
-
 
     nWalks = 40000
     nPoints = 14
@@ -69,4 +59,4 @@ if __name__ == "__main__":
     sns.distplot(distributionLastPoint[fraction==1], bins=10, kde=False, rug=True, ax=axes[2]);
     sns.distplot(distributionAverageDist[fraction==1], bins=10, kde=False, rug=True, ax=axes[3]);
     plt.show()
-    print(np.sum(fraction) / 40000)
+    print('Fraction of stuff',np.sum(fraction) / 40000)

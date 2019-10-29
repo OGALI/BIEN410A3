@@ -1,9 +1,9 @@
 import random
 import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.pyplot as plt
-from scipy import stats
+from scipy import ndimage
+
 
 class RandomWalk:
     step = ['up', 'down', 'right', 'left']
@@ -22,8 +22,6 @@ class RandomWalk:
 
     def nextStep(self, currentStep):
         nextStep = random.choice(self.step)
-        # index = random.randint(low=0,high=3)
-        # nextStep = self.step[index]
         previousX, previousY = self.positions[currentStep-1,]
         if nextStep == 'up':
             newX, newY = previousX, previousY + 1
@@ -35,22 +33,17 @@ class RandomWalk:
             newX, newY = previousX - 1, previousY
         self.positions[currentStep,] = (newX, newY)
 
-    def EuclidianDistanceLast(self):
-        dist = np.linalg.norm(self.positions[0,]- self.positions[self.Nsteps -1,])
-        return dist
 
-    def averageEuclidianDistance(self, start=(0, 0)):
-        meanDist = 0
-        for i in range(self.Nsteps):
-            meanDist = meanDist + np.linalg.norm((self.positions[0,]) - self.positions[i,])
-        return meanDist/(self.Nsteps-1)
+    def EuclidianDistanceLast(self, start=(0,0)):
+        return np.linalg.norm(start - self.positions[self.Nsteps -1,])
+
+
+    def averageEuclidianDistance(self, start=(0,0)):
+        return np.mean(np.linalg.norm(self.positions- [0,0]))
 
 
     def centroid(self):
-        length = self.positions.shape[0]
-        sum_x = np.sum(self.positions[:, 0])
-        sum_y = np.sum(self.positions[:, 1])
-        return (sum_x / length, sum_y / length)
+        return ndimage.measurements.center_of_mass(self.positions)
 
 
     def printer(self):
@@ -64,7 +57,7 @@ if __name__ == "__main__":
         walker = RandomWalk((0,0), 1000)
         walker.fullWalk()
         distributionLastPoint[i] = walker.EuclidianDistanceLast()
-        distributionAverageDist[i] = walker.averageEuclidianDistance()
+        distributionAverageDist[i] = walker.averageEuclidianDistance(start=walker.centroid())
 
 
     f, axes = plt.subplots(2, 1)
