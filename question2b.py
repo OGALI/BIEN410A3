@@ -54,9 +54,19 @@ if __name__ == "__main__":
         distributionAverageDist[i] = walker.averageEuclidianDistance()
 
     f, axes = plt.subplots(4, 1)
-    sns.distplot(distributionLastPoint, bins=10, kde=False, rug=True, ax=axes[0]);
-    sns.distplot(distributionAverageDist, bins=10, kde=False, rug=True, ax=axes[1]);
-    sns.distplot(distributionLastPoint[fraction==1], bins=10, kde=False, rug=True, ax=axes[2]);
-    sns.distplot(distributionAverageDist[fraction==1], bins=10, kde=False, rug=True, ax=axes[3]);
+    sns.distplot(distributionLastPoint, bins=10, kde=False, rug=True, ax=axes[0])
+    sns.distplot(distributionAverageDist, bins=10, kde=False, rug=True, ax=axes[1])
+    sns.distplot(distributionLastPoint[fraction==1], bins=10, kde=False, rug=True, ax=axes[2])
+    sns.distplot(distributionAverageDist[fraction==1], bins=10, kde=False, rug=True, ax=axes[3])
+    axes[0].set_title('Distribution of Euclidian Distances \n to the Last Point to the Origin')
+    axes[1].set_title('Distribution of Average Euclindean Distance to the Centroid')
+    axes[2].set_title('Distribution of Euclidian Distances \n to the Last Point to the Origin for Self-Avoiding Walks')
+    axes[3].set_title('Distribution of Average Euclidian Distance \n to the Last point to the origin for Self-Avoiding Walks')
+    axes[0].set(xlabel='Distance', ylabel='# of times')
+    axes[1].set(xlabel='Distance', ylabel='# of times')
+    axes[2].set(xlabel='Distance', ylabel='# of times')
+    axes[3].set(xlabel='Distance', ylabel='# of times')
+    plt.tight_layout()
+    plt.savefig('question2b.jpg', dpi=500)
     plt.show()
-    print('Fraction of stuff',np.sum(fraction) / 40000)
+    print('Fraction of stuff', np.sum(fraction) / 40000)

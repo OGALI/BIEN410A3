@@ -51,24 +51,25 @@ class RandomWalk:
 
 
 if __name__ == "__main__":
-    distributionLastPoint = np.zeros(1000)
-    distributionAverageDist = np.zeros(1000)
-    for i in range(1000):
-        walker = RandomWalk((0,0), 1000)
+    nWalks = 1000
+    nPoints = 1000
+    distributionLastPoint = np.zeros(nWalks)
+    distributionAverageDist = np.zeros(nWalks)
+
+    for i in range(nWalks):
+        walker = RandomWalk((0,0), nPoints)
         walker.fullWalk()
         distributionLastPoint[i] = walker.EuclidianDistanceLast()
         distributionAverageDist[i] = walker.averageEuclidianDistance(start=walker.centroid())
 
 
     f, axes = plt.subplots(2, 1)
-    # f.title('Main title')
     sns.distplot(distributionLastPoint, bins=20, kde=False, rug=True, ax=axes[0]);
+    sns.distplot(distributionAverageDist, bins=20, kde=False, rug=True, ax=axes[1]);
     axes[0].set_title('Distribution of Euclidian Distances of the Last Point')
     axes[1].set_title('Distribution of Average Euclidian Distances')
-
     axes[0].set(xlabel='Distance', ylabel='# of times')
     axes[1].set(xlabel='Distance', ylabel='# of times')
-
-    sns.distplot(distributionAverageDist, bins=20, kde=False, rug=True, ax=axes[1]);
-    plt.show()
+    plt.tight_layout()
+    plt.savefig('question1.jpg',dpi=500)
 

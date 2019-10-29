@@ -61,18 +61,22 @@ if __name__ == "__main__":
 
     f, axes = plt.subplots(3, 1)
     sns.distplot(distributionLength, kde=False, rug=True, ax=axes[0]);
+    sns.distplot(distributionLastPoint[distributionLastPoint != 0], bins=20, kde=False, rug=True, ax=axes[1]);
+    sns.distplot(distributionAverageDist[distributionAverageDist != 0], bins=20, kde=False, rug=True, ax=axes[2]);
+    axes[0].set_title('Distribution of Walk Lengths for 2000 Walks with Sticky Walls', fontsize=20)
+    axes[1].set_title('Distribution of Euclindean Distance for Non Sticky fraction', fontsize=20)
+    axes[2].set_title('Distribution of Average Distances \n to the Centroid for 2000 walks for Non-Sticky Fraction', fontsize=20)
+    axes[0].set(xlabel='Distance', fontsize=18)
+    axes[1].set(xlabel='Distance', ylabel='# of times')
+    axes[2].set(xlabel='Distance', ylabel='# of times')
+    plt.tight_layout()
+    f.set_size_inches(12, 15)
+    plt.savefig('question2a.jpg', dpi=500)
+    plt.show()
 
-    print(distributionLength)
     # Check fraction above 1000
     distributionLengthFraction = distributionLength
     distributionLengthFraction[distributionLengthFraction<999] = 0
     distributionLengthFraction[distributionLengthFraction==999] = 1
-    print(len(distributionLengthFraction))
-    print(np.sum(distributionLengthFraction)/2000)
-
-
-    sns.distplot(distributionLastPoint[distributionLastPoint != 0], bins=20, kde=False, rug=True, ax=axes[1]);
-    sns.distplot(distributionAverageDist[distributionAverageDist != 0], bins=20, kde=False, rug=True, ax=axes[2]);
-    plt.show()
-
+    print('Fraction of non sticky: ', np.sum(distributionLengthFraction)/2000)
     print('average from centroid:', walker.averageEuclidianDistance(walker.centroid()))
