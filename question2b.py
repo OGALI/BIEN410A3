@@ -14,10 +14,11 @@ class RandomWalkSefAvoid(RandomWalk):
 
     def fullWalk(self):
         for currentStep in range(1, self.Nsteps):
+            flag = 0
             while self.nextStep(currentStep) == 0:
                 self.nextStep(currentStep)
-                return 0
-            return 1
+                flag = 1
+        return flag
 
 
     def nextStep(self, currentStep):
@@ -47,6 +48,7 @@ if __name__ == "__main__":
     # walker.printer()
     # walker.averageEuclidianDistance()
     # walker.EuclidianDistanceLast()
+    # walker.averageEuclidianDistance(walker.centroid())
     # print('average to centroid:', walker.averageEuclidianDistance(walker.centroid()))
 
 
@@ -61,9 +63,10 @@ if __name__ == "__main__":
         distributionLastPoint[i] = walker.averageEuclidianDistance(walker.centroid())
         distributionAverageDist[i] = walker.averageEuclidianDistance()
 
-    f, axes = plt.subplots(2, 1)
-    sns.distplot(distributionLastPoint, kde=False, rug=True, ax=axes[0]);
-    sns.distplot(distributionAverageDist, kde=False, rug=True, ax=axes[1]);
+    f, axes = plt.subplots(4, 1)
+    sns.distplot(distributionLastPoint, bins=10, kde=False, rug=True, ax=axes[0]);
+    sns.distplot(distributionAverageDist, bins=10, kde=False, rug=True, ax=axes[1]);
+    sns.distplot(distributionLastPoint[fraction==1], bins=10, kde=False, rug=True, ax=axes[2]);
+    sns.distplot(distributionAverageDist[fraction==1], bins=10, kde=False, rug=True, ax=axes[3]);
     plt.show()
-
-    print(np.sum(fraction)/40000)
+    print(np.sum(fraction) / 40000)
