@@ -66,11 +66,12 @@ if __name__ == "__main__":
     axes[0].set_title('Distribution of Walk Lengths for 2000 Walks with Sticky Walls', fontsize=20)
     axes[1].set_title('Distribution of Euclindean Distance for Non Sticky fraction', fontsize=20)
     axes[2].set_title('Distribution of Average Distances \n to the Centroid for 2000 walks for Non-Sticky Fraction', fontsize=20)
-    axes[0].set(xlabel='Distance', fontsize=18)
+    axes[0].set(xlabel='Distance', ylabel='# of times')
     axes[1].set(xlabel='Distance', ylabel='# of times')
     axes[2].set(xlabel='Distance', ylabel='# of times')
-    plt.tight_layout()
+
     f.set_size_inches(12, 15)
+    plt.tight_layout()
     plt.savefig('question2a.jpg', dpi=500)
     plt.show()
 

@@ -3,6 +3,9 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import ndimage
+from sklearn.metrics.pairwise import euclidean_distances
+import time
+import concurrent.futures
 
 
 class RandomWalk:
@@ -39,7 +42,7 @@ class RandomWalk:
 
 
     def averageEuclidianDistance(self, start=(0,0)):
-        return np.mean(np.linalg.norm(self.positions- [0,0]))
+        return np.mean(euclidean_distances(self.positions,[[0,0]]))
 
 
     def centroid(self):
