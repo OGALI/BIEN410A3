@@ -59,11 +59,21 @@ if __name__ == "__main__":
     distributionLastPoint = np.zeros(nWalks)
     distributionAverageDist = np.zeros(nWalks)
 
-    for i in range(nWalks):
+
+    def singleWalkObject(start, nPoints):
         walker = RandomWalk((0,0), nPoints)
         walker.fullWalk()
-        distributionLastPoint[i] = walker.EuclidianDistanceLast()
-        distributionAverageDist[i] = walker.averageEuclidianDistance(start=walker.centroid())
+        return (walker.EuclidianDistanceLast(), walker.averageEuclidianDistance(start=walker.centroid()))
+
+
+    start = time.perf_counter()
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        results = [executor.submit(singleWalkObject,(0,0),nPoints) for i in range(nWalks)]
+        distributionLastPoint = [results[i].result()[0] for i in range(nWalks)]
+        distributionAverageDist = [results[i].result()[1] for i in range(nWalks)]
+    end = time.perf_counter()
+    print(f'time {end-start}')
+
 
 
     f, axes = plt.subplots(2, 1)
@@ -75,4 +85,12 @@ if __name__ == "__main__":
     axes[1].set(xlabel='Distance', ylabel='# of times')
     plt.tight_layout()
     plt.savefig('question1.jpg',dpi=500)
+    plt.show()
 
+    print(f'Distribution of Euclidian Distances of the Last Point Mean: {np.mean(distributionLastPoint)}')
+    print(f'Distribution of Euclidian Distances of the Last Point STD: {np.std(distributionLastPoint)}')
+    print(f'Distribution of Euclidian Distances of the Last Point median: {np.median(distributionLastPoint)}')
+
+    print(f'Distribution of Average Euclidian Distance Mean: {np.mean(distributionAverageDist)}')
+    print(f'Distribution of Average Euclidian Distance STD: {np.std(distributionAverageDist)}')
+    print(f'Distribution of Average Euclidian Distance median: {np.median(distributionAverageDist)}')
